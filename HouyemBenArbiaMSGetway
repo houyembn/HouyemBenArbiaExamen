@@ -1,0 +1,20 @@
+eureka:
+  client:
+    serviceURL:
+      defaultZone: http://localhost:6001/eureka
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: utilisateur
+          uri: lb://utilisateur
+          predicates:
+            - Path=/utilisateur/**
+          filters:
+            - RewritePath=/utilisateur/(?<path>.*), /${path}
+        - id: abonnement
+          uri: lb://
+          predicates:
+            - Path=/abonnement/**
+          filters:
+            - RewritePath=/abonnement/(?<path>.*), /${path}
